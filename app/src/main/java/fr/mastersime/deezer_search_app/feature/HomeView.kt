@@ -1,5 +1,6 @@
 package fr.mastersime.deezer_search_app.feature
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -40,13 +41,13 @@ fun HomeView() {
         Button(
             modifier = Modifier.fillMaxWidth(),
             onClick = {
-            homeViewModel.authorList
-                
-        },
+                homeViewModel.updateData(text)
+                Log.d("","Hello from click sur le bouton")
+            },
             content = {
                 Text(text = "Search Track")
             }
-            )
+        )
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
             contentPadding = PaddingValues(16.dp),
