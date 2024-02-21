@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -21,9 +22,12 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
 fun HomeView() {
+
+    val homeViewModel: HomeViewModel = hiltViewModel()
     var text by remember { mutableStateOf("Hello") }
 
     Column(Modifier.fillMaxSize()) {
@@ -33,6 +37,16 @@ fun HomeView() {
             label = { Text("Enter artiste name") },
             modifier = Modifier.fillMaxWidth()
         )
+        Button(
+            modifier = Modifier.fillMaxWidth(),
+            onClick = {
+            homeViewModel.authorList
+                
+        },
+            content = {
+                Text(text = "Search Track")
+            }
+            )
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
             contentPadding = PaddingValues(16.dp),

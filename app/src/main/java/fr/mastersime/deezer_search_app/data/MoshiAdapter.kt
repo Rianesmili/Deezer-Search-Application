@@ -6,7 +6,7 @@ import fr.mastersime.deezer_search_app.data.entities.AuthorEntity
 
 class MoshiAdapter {
     @FromJson
-    fun fromJson(songResponse: ListSongResponse): List<AuthorEntity> {
+    fun fromJson(songResponse: ListAuthorResponse): List<AuthorEntity> {
         return songResponse.data.map { songData ->
             AuthorEntity(
                 id = songData.id,
@@ -18,8 +18,8 @@ class MoshiAdapter {
     }
 
     @ToJson
-    fun toJson(listSong: List<AuthorEntity>): ListSongResponse {
-        return ListSongResponse(
+    fun toJson(listSong: List<AuthorEntity>): ListAuthorResponse {
+        return ListAuthorResponse(
             data = listSong.map { song ->
                 SongData(
                     id = song.id,

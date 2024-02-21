@@ -1,7 +1,7 @@
 package fr.mastersime.deezer_search_app.data
 
 
-data class ListSongResponse(
+data class ListAuthorResponse(
     val data: List<SongData>
 )
 
