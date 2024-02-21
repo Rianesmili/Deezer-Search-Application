@@ -1,6 +1,7 @@
 package fr.mastersime.deezer_search_app.data.daos
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -15,5 +16,8 @@ interface AuthorDao {
 
     @Query("SELECT * FROM AuthorEntity")
     fun getFirstListFlow(): Flow<List<AuthorEntity>>
+
+    @Query("DELETE FROM AuthorEntity")
+    suspend fun clearTabs()
 
 }

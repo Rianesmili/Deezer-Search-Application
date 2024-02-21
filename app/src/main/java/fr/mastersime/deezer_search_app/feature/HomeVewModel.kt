@@ -9,7 +9,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import fr.mastersime.deezer_search_app.data.entities.AuthorEntity
 import fr.mastersime.deezer_search_app.repository.AppRepository
 import fr.mastersime.deezer_search_app.repository.AuthorResponse
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -27,19 +26,35 @@ class HomeViewModel @Inject constructor(
     val authorList: LiveData<List<AuthorEntity>> = _authorList
 
 
+    init {
+        viewModelScope.launch {
+            appRepository.songs.collect { songList ->
+                _authorList.value = songList
+            }
+        }
+    }
+
     fun updateData(artistName: String) {
         Log.d("HomeViewModel", "Hello from updateData called with artistName: $artistName")
         viewModelScope.launch {
             try {
                 _isUpdating.postValue(true)
                 appRepository.updateAuthor(artistName)
-                val list = appRepository.authorResponse.first()
-                if (list is AuthorResponse.Success) {
-                    _authorList.postValue(list.list)
-                    Log.d("HomeViewModel", "Success: ${list.list}")
-                } else if (list is AuthorResponse.Failure) {
-                    _errorMessage.postValue(list.errorMessage)
-                    Log.d("HomeViewModel", "Failure: ${list.errorMessage}")
+                appRepository.authorResponse.collect {
+                    when (it) {
+                        is AuthorResponse.Success -> {
+                            _authorList.postValue(it.list)
+                            Log.d("HomeViewModel", "Success: ${it.list}")
+                        }
+
+                        is AuthorResponse.Failure -> {
+                            _errorMessage.postValue(it.errorMessage)
+                            Log.d("HomeViewModel", "Failure: ${it.errorMessage}")
+                        }
+                        is AuthorResponse.Pending -> {
+                            Log.d("HomeViewModel", "Pending: ${it}")
+                        }
+                    }
                 }
             } catch (e: Exception) {
                 _errorMessage.postValue(e.message)

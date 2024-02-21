@@ -13,7 +13,7 @@ class MoshiAdapter {
             AuthorEntity(
                 id = songData.id,
                 title = songData.title,
-                author = songData.album.title,
+                album = songData.album.title,
                 duration = songData.duration
             )
         }
@@ -27,7 +27,7 @@ class MoshiAdapter {
                     id = song.id,
                     title = song.title ?: "",
                     duration = song.duration ?: 0,
-                    album = Album(id = 0L, title = song.author ?: "", type = "album"),
+                    album = Album(id = 0L, title = song.album ?: "", type = "album"),
                     type = "track"
                 )
             }

@@ -20,7 +20,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -36,7 +35,6 @@ fun HomeView() {
 
     val songs by homeViewModel.authorList.observeAsState(initial = emptyList())
 
-
     Column(Modifier.fillMaxSize()) {
         TextField(
             value = text,
@@ -48,7 +46,7 @@ fun HomeView() {
             modifier = Modifier.fillMaxWidth(),
             onClick = {
                 homeViewModel.updateData(text)
-                Log.d("","Hello from click sur le bouton")
+                Log.d("", "Hello from click sur le bouton")
             },
             content = {
                 Text(text = "Search Track")
@@ -59,7 +57,7 @@ fun HomeView() {
             contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            items(songs) { song ->
+            items(songs.sortedBy { it.album }) { song ->
                 RowListItem(song)
             }
         }
@@ -78,7 +76,8 @@ fun RowListItem(song: AuthorEntity) {
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier
-                .weight(1f),
+                .weight(1f)
+                .fillMaxWidth(),
             fontSize = 20.sp,
         )
         ColumnSideItem(song)
@@ -87,17 +86,17 @@ fun RowListItem(song: AuthorEntity) {
 
 @Composable
 fun ColumnSideItem(song: AuthorEntity) {
-    Column (
+    Column(
+        horizontalAlignment = Alignment.End
     ) {
         Text(
-            text = song.author ?: "",
+            text = song.album ?: "",
             overflow = TextOverflow.Ellipsis,
-            fontSize = 20.sp,
+            fontSize = 16.sp,
         )
         Text(
             text = song.duration?.toString() ?: "",
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold
+            fontSize = 16.sp,
         )
     }
 }

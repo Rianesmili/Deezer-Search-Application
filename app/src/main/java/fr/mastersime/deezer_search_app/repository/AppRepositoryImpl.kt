@@ -16,6 +16,7 @@ class AppRepositoryImpl @Inject constructor(
     private val authorDao: AuthorDao,
     private val authorService: AuthorService,
 ) : AppRepository {
+    override val songs = authorDao.getFirstListFlow()
 
     override val authorResponse: MutableStateFlow<AuthorResponse> = MutableStateFlow(
         AuthorResponse.Success(emptyList())
@@ -30,10 +31,11 @@ class AppRepositoryImpl @Inject constructor(
                 AuthorEntity(
                     id = songData.id,
                     title = songData.title,
-                    author = songData.album.title,
+                    album = songData.album.title,
                     duration = songData.duration
                 )
             }
+            authorDao.clearTabs()
             authorDao.insertAll(list)
         } catch (e: IOException) {
             val errorMessage = "Network error"

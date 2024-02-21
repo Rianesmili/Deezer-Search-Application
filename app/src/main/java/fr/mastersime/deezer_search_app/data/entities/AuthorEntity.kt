@@ -8,6 +8,6 @@ data class AuthorEntity (
     @PrimaryKey
     val id: Long = 0L,
     val title: String? = "",
-    val author: String? = "",
+    val album: String? = "",
     val duration: Int? = null,
 )
