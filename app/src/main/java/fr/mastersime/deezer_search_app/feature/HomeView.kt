@@ -1,11 +1,20 @@
 package fr.mastersime.deezer_search_app.feature
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -15,31 +24,69 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun HomeView() {
-    Text("Hello dev")
+    var text by remember { mutableStateOf("Hello") }
+
+    Column(Modifier.fillMaxSize()) {
+        TextField(
+            value = text,
+            onValueChange = { text = it },
+            label = { Text("Enter artiste name") },
+            modifier = Modifier.fillMaxWidth()
+        )
+        LazyColumn(
+            modifier = Modifier.fillMaxSize(),
+            contentPadding = PaddingValues(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            item {
+                RowListItem()
+            }
+        }
+    }
+
+
 }
 
+@Preview(showBackground = true)
 @Composable
-fun ColumnSideItem(){
-    Column {
+fun RowListItem() {
+    Row(
+        verticalAlignment = Alignment.CenterVertically
+    ) {
         Text(
-            text = "Amnesiac",
+            text = "Radio Head",
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.weight(1f),
+            modifier = Modifier
+                .weight(1f),
             fontSize = 20.sp,
         )
-        Spacer(modifier = Modifier.width(16.dp))
+        ColumnSideItem()
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ColumnSideItem(
+) {
+    Column (
+    ) {
+        Text(
+            text = "Amnesiac",
+            overflow = TextOverflow.Ellipsis,
+            // modifier = Modifier.weight(1f),
+            fontSize = 20.sp,
+        )
         Text(
             text = "4,48",
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold
         )
-        Spacer(modifier = Modifier.width(16.dp))
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
-fun HomeViewPreview(){
-    HomeView()
+fun HomeViewPreview() {
+    RowListItem()
 }
