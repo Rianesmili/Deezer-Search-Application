@@ -5,6 +5,6 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface AuthorService {
-    @GET("/search")
+    @GET("search")
     suspend fun getAuthorList(@Query("q") artistName: String): ListAuthorResponse
 }

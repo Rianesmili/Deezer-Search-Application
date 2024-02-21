@@ -36,11 +36,14 @@ class HomeViewModel @Inject constructor(
                 val list = appRepository.authorResponse.first()
                 if (list is AuthorResponse.Success) {
                     _authorList.postValue(list.list)
+                    Log.d("HomeViewModel", "Success: ${list.list}")
                 } else if (list is AuthorResponse.Failure) {
                     _errorMessage.postValue(list.errorMessage)
+                    Log.d("HomeViewModel", "Failure: ${list.errorMessage}")
                 }
             } catch (e: Exception) {
                 _errorMessage.postValue(e.message)
+                Log.d("HomeViewModel", "Exception: ${e.message}")
             } finally {
                 _isUpdating.postValue(false)
             }

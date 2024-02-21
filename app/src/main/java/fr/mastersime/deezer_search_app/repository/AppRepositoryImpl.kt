@@ -1,5 +1,6 @@
 package fr.mastersime.deezer_search_app.repository
 
+import android.util.Log
 import fr.mastersime.deezer_search_app.data.daos.AuthorDao
 import fr.mastersime.deezer_search_app.data.entities.AuthorEntity
 import fr.mastersime.deezer_search_app.webservice.AuthorService
@@ -24,6 +25,7 @@ class AppRepositoryImpl @Inject constructor(
         try {
             authorResponse.emit(AuthorResponse.Pending)
             val response = authorService.getAuthorList(artistName)
+            Log.d("","Hello from $response")
             val list = response.data.map { songData ->
                 AuthorEntity(
                     id = songData.id,

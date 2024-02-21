@@ -105,7 +105,5 @@ fun ColumnSideItem(song: AuthorEntity) {
 @Preview(showBackground = true)
 @Composable
 fun HomeViewPreview() {
-    val authorList = AuthorEntity(
-    )
-    RowListItem(authorList)
+    HomeView()
 }
