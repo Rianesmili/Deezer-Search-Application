@@ -10,10 +10,4 @@ data class AuthorEntity (
     val title: String? = "",
     val author: String? = "",
     val duration: Int? = null,
-    val lines: Lines? = null,
-    val linecount: String? = null
-)
-
-data class Lines(
-    val lines: List<String>
 )
