@@ -32,7 +32,7 @@ import fr.mastersime.deezer_search_app.data.entities.AuthorEntity
 fun HomeView() {
 
     val homeViewModel: HomeViewModel = hiltViewModel()
-    var text by remember { mutableStateOf("Hello") }
+    var text by remember { mutableStateOf("") }
 
     val songs by homeViewModel.authorList.observeAsState(initial = emptyList())
 

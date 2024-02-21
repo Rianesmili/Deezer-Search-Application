@@ -1,5 +1,6 @@
 package fr.mastersime.deezer_search_app.data
 
+import android.util.Log
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.ToJson
 import fr.mastersime.deezer_search_app.data.entities.AuthorEntity
@@ -7,6 +8,7 @@ import fr.mastersime.deezer_search_app.data.entities.AuthorEntity
 class MoshiAdapter {
     @FromJson
     fun fromJson(songResponse: ListAuthorResponse): List<AuthorEntity> {
+        Log.d("MoshiAdapter", "fromJson called with songResponse: $songResponse")
         return songResponse.data.map { songData ->
             AuthorEntity(
                 id = songData.id,
